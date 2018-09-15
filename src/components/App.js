@@ -1,36 +1,19 @@
 import React from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 
-import './css/logo.css';
-import './css/image.css';
-import image from './image'
-import audio from './audio'
+import '../css/logo.css';
+import Image from './Image'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.audioRef = React.createRef();
-    this.play = this.play.bind(this)
-    this.pause = this.pause.bind(this)
     this.toggle = this.toggle.bind(this)
-    this.state = {
-      audio: 'pause'
-    }
   }
   toggle() {
     this.audioRef.current.audioEl.paused
       ? this.audioRef.current.audioEl.play()
       : this.audioRef.current.audioEl.pause()
-  }
-
-  play() {
-    console.log(this.audioRef.current.audioEl)
-    console.log('play')
-    this.audioRef.current.audioEl.play()
-  }
-  pause() {
-    console.log('pause')
-    this.audioRef.current.audioEl.pause()
   }
   render() {
     return (
@@ -40,19 +23,15 @@ class App extends React.Component {
         </header>
         <main
           className="main"
-          style={{backgroundImage: `url(${image})`}}
-          // onClick={this.state.audio == 'play' ? this.pause : this.play}
           onClick={this.toggle}
-          >
-          {this.state.audio}
+        >
+          <Image image={this.props.image} />
         </main>
         <ReactAudioPlayer
           ref={this.audioRef}
-          src={audio}
+          src={this.props.audio}
           // autoPlay
-          controls
-          onPlay={() => this.setState({ audio: 'play' })}
-          onPause={() => this.setState({ audio: 'pause' })}
+          // controls
         />
       </div>
     );
