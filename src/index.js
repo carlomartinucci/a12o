@@ -7,6 +7,9 @@ import App from './components/App';
 import registerServiceWorker from './utils/registerServiceWorker';
 import image from './utils/image'
 import audio from './utils/audio'
+import withVibrant from './hocs/withVibrant'
 
-ReactDOM.render(<App image={image} audio={audio} />, document.getElementById('root'));
+const AppWithVibrant = withVibrant(App, image)
+
+ReactDOM.render(<AppWithVibrant image={image} audio={audio} />, document.getElementById('root'));
 registerServiceWorker();

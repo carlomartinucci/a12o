@@ -18,13 +18,10 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <header className="header">
-          <h1 className="header__title">A12o</h1>
+        <header className="header" style={{backgroundColor: this.props.headerBackgroundColor}}>
+          <h1 className="header__title" style={{color: this.props.headerTitleColor}}>A12o</h1>
         </header>
-        <main
-          className="main"
-          onClick={this.toggle}
-        >
+        <main className="main" onClick={this.toggle} style={{backgroundColor: this.props.mainBackgroundColor}}>
           <Image image={this.props.image} />
         </main>
         <ReactAudioPlayer
