@@ -1,8 +1,8 @@
 import React from 'react';
 import * as Vibrant from 'node-vibrant'
 
-export default function withVibrant(WrappedComponent, image) {
-  return class extends React.Component {
+const withVibrant = image => WrappedComponent => {
+  class WithVibrant extends React.Component {
     constructor(props) {
       super(props);
       this.setStateFromPalette = this.setStateFromPalette.bind(this)
@@ -26,9 +26,11 @@ export default function withVibrant(WrappedComponent, image) {
     }
 
     render() {
-      // ... and renders the wrapped component with the fresh data!
-      // Notice that we pass through any additional props
       return <WrappedComponent {...this.state} {...this.props} />;
     }
-  };
+  }
+  WithVibrant.displayName = `WithVibrant(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`;
+  return WithVibrant
 }
+
+export default withVibrant
