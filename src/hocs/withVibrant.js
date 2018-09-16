@@ -5,6 +5,7 @@ const withVibrant = image => WrappedComponent => {
   class WithVibrant extends React.Component {
     constructor(props) {
       super(props);
+      this.vibrant = this.vibrant.bind(this)
       this.setStateFromPalette = this.setStateFromPalette.bind(this)
       this.state = {
         palette: null,
@@ -15,7 +16,11 @@ const withVibrant = image => WrappedComponent => {
     }
 
     componentDidMount() {
-      Vibrant.from(image).getPalette().then(this.setStateFromPalette)
+      this.vibrant(5).then(() => this.vibrant(0))
+    }
+
+    vibrant(quality) {
+      return Vibrant.from(image, 256, quality).getPalette().then(this.setStateFromPalette)
     }
 
     setStateFromPalette(palette) {
