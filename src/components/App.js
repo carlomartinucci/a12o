@@ -19,13 +19,13 @@ class App extends React.Component {
   render() {
     return (
       <div className="app" onClick={this.toggle}>
-        <header className="header" style={{backgroundColor: this.props.headerBackgroundColor}}>
-          <h1 className="header__title" style={{color: this.props.headerTitleColor}}>
+        <header className="header transition-background-color" style={{backgroundColor: this.props.headerBackgroundColor}}>
+          <h1 className="header__title transition-color" style={{color: this.props.headerTitleColor}}>
             A12o {clearAudioSrc(this.props.audio)}
           </h1>
         </header>
-        <main className="main" style={{backgroundColor: this.props.mainBackgroundColor}}>
-          <Image image={this.props.image} />
+        <main className="main transition-background-color" style={{backgroundColor: this.props.mainBackgroundColor}}>
+          <Image image={this.props.palette && this.props.image} />
         </main>
         <ReactAudioPlayer
           ref={this.audioRef}

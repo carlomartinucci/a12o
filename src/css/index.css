@@ -4,6 +4,29 @@ body {
   font-family: sans-serif;
 }
 
+.transition-color {
+  transition: color 1s;
+  will-change: color;
+}
+
+.transition-opacity {
+  transition: opacity 1s;
+  will-change: opacity;
+}
+
+.opacity-0 {
+  opacity: 0
+}
+
+.opacity-1 {
+  opacity: 1
+}
+
+.transition-background-color {
+  transition: background-color 1s;
+  will-change: background-color;
+}
+
 .app {
   height: 100vh;
   width: 100vw;
