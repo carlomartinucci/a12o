@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 
+import { clearAudioSrc } from '../utils'
 import '../css/logo.css';
 import Image from './Image'
 
@@ -17,11 +18,13 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div className="app">
+      <div className="app" onClick={this.toggle}>
         <header className="header" style={{backgroundColor: this.props.headerBackgroundColor}}>
-          <h1 className="header__title" style={{color: this.props.headerTitleColor}}>A12o</h1>
+          <h1 className="header__title" style={{color: this.props.headerTitleColor}}>
+            A12o {clearAudioSrc(this.props.audio)}
+          </h1>
         </header>
-        <main className="main" onClick={this.toggle} style={{backgroundColor: this.props.mainBackgroundColor}}>
+        <main className="main" style={{backgroundColor: this.props.mainBackgroundColor}}>
           <Image image={this.props.image} />
         </main>
         <ReactAudioPlayer

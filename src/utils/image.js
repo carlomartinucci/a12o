@@ -1,5 +1,5 @@
-import { randObj, importAll } from './index'
+import { currentDayObj, importAll } from './index'
 
 const imagesHash = importAll(require.context('../images', false))
 
-export default randObj(imagesHash)
+export default currentDayObj(imagesHash)

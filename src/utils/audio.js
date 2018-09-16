@@ -1,5 +1,5 @@
-import { randObj, importAll } from './index'
+import { currentDayObj, importAll } from './index'
 
 const audioHash = importAll(require.context('../audio', false))
 
-export default randObj(audioHash)
+export default currentDayObj(audioHash)
