@@ -43,7 +43,7 @@ class App extends React.Component<Props> {
         <ReactAudioPlayer
           ref={this.audioRef}
           src={this.props.audio}
-          // autoPlay
+          autoPlay
           // controls
         />
       </div>
