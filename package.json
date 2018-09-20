@@ -2,7 +2,9 @@
   "name": "a12o",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://carlomartinucci.github.io/a12o",
   "dependencies": {
+    "gh-pages": "^2.0.0",
     "node-vibrant": "^3.0.0",
     "react": "^16.5.0",
     "react-audio-player": "^0.10.0",
@@ -10,6 +12,8 @@
     "react-scripts": "1.1.5"
   },
   "scripts": {
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
