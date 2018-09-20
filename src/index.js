@@ -5,9 +5,13 @@ import './css/index.css';
 import App from './components/App';
 
 import registerServiceWorker from './utils/registerServiceWorker';
-import image from './utils/image'
-import audio from './utils/audio'
+import images from './utils/images'
+import audios from './utils/audios'
+import { currentDayObj } from './utils/index'
 import withVibrant from './hocs/withVibrant'
+
+const image = currentDayObj(images)
+const audio = currentDayObj(audios)
 
 const AppWithVibrant = withVibrant(image)(App)
 

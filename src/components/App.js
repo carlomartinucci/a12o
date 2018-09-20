@@ -39,13 +39,13 @@ class App extends React.Component<Props> {
         </header>
         <main className="main transition-background-color" style={{backgroundColor: this.props.mainBackgroundColor}}>
           <Image image={this.props.palette && this.props.image} />
+          <ReactAudioPlayer
+            ref={this.audioRef}
+            src={this.props.audio}
+            autoPlay
+            controls
+          />
         </main>
-        <ReactAudioPlayer
-          ref={this.audioRef}
-          src={this.props.audio}
-          autoPlay
-          controls
-        />
       </div>
     );
   }
