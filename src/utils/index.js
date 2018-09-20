@@ -17,4 +17,5 @@ export const currentDayObj = hash => {
 
 // togli tutto quello che trovi prima di '/'
 // togli tutto quello che trovi dopo di '.'
-export const clearAudioSrc = src => src.replace(/^.*\//, '').replace(/\..*$/, '')
+// sostituisci '_' con ' '
+export const clearAudioSrc = src => src.replace(/^.*\//, '').replace(/\..*$/, '').replace('_', ' ')
