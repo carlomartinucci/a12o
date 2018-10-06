@@ -20,13 +20,13 @@ const withVibrant = image => WrappedComponent => {
     }
 
     vibrant(quality) {
-      return Vibrant.from(image, 256, quality).getPalette().then(this.setStateFromPalette)
+      return Vibrant.from(image, 256, quality).getPalette().then(this.setStateFromPalette).catch(console.log)
     }
 
     setStateFromPalette(palette) {
-      const headerBackgroundColor = palette && palette.DarkVibrant.getHex()
-      const headerTitleColor = palette && palette.DarkVibrant.getTitleTextColor()
-      const mainBackgroundColor = palette && palette.Vibrant.getHex()
+      const headerBackgroundColor = palette && palette.DarkVibrant ? palette.DarkVibrant.getHex() : '#000'
+      const headerTitleColor = palette && palette.DarkVibrant ? palette.DarkVibrant.getTitleTextColor() : '#fff'
+      const mainBackgroundColor = palette && palette.Vibrant ? palette.Vibrant.getHex() : '#fff'
       this.setState({ palette, headerBackgroundColor, headerTitleColor, mainBackgroundColor })
     }
 
