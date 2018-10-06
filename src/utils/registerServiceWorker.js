@@ -48,6 +48,8 @@ export default function register() {
         // Is not local host. Just register service worker
         registerValidSW(swUrl);
       }
+
+      navigator.serviceWorker.ready.then(setupPeriodicSync);
     });
   }
 }
@@ -114,4 +116,50 @@ export function unregister() {
       registration.unregister();
     });
   }
+}
+
+function setupPeriodicSync(registration) {
+  if(!registration.periodicSync) {
+    console.log('setupPeriodicSync', 'periodicSync not available :(')
+    return
+  }
+
+  registration.periodicSync.register({
+    tag: 'daily-alarm',         // default: ''
+    minPeriod: 10 * 1000 // default: 0
+  }).then(function(periodicSyncReg) {
+    notifyMe()
+    console.log('setupPeriodicSync', 'registration', registration)
+    console.log('setupPeriodicSync', 'periodicSyncReg', periodicSyncReg)
+  }, function() {
+    console.log('setupPeriodicSync', 'failure')
+  })
+}
+
+function notifyMe() {
+  // Let's check if the browser supports notifications
+  if (!("Notification" in window)) {
+    alert("This browser does not support system notifications");
+  }
+
+  // Let's check whether notification permissions have already been granted
+  else if (Notification.permission === "granted") {
+    // If it's okay let's create a notification
+    var notification = new Notification("Hi there!");
+    console.log(notification)
+  }
+
+  // Otherwise, we need to ask the user for permission
+  else if (Notification.permission !== 'denied') {
+    Notification.requestPermission(function (permission) {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        var notification = new Notification("Hi there!");
+        console.log(notification)
+      }
+    });
+  }
+
+  // Finally, if the user has denied notifications and you
+  // want to be respectful there is no need to bother them any more.
 }
