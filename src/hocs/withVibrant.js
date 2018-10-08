@@ -1,17 +1,33 @@
-import React from 'react';
-import * as Vibrant from 'node-vibrant'
+// @flow
+import * as React from 'react';
+import * as Vibrant from 'node-vibrant';
 
-const withVibrant = image => WrappedComponent => {
-  class WithVibrant extends React.Component {
+type Swatch = {
+  getHex: () => string,
+  getTitleTextColor: () => string
+};
+
+export type Palette = {
+  DarkMuted: Swatch,
+  DarkVibrant: Swatch,
+  Muted: Swatch,
+  Vibrant: Swatch,
+  LightMuted: Swatch,
+  LightVibrant: Swatch
+} | null;
+
+function withVibrant<Props: { image: string, palette: Palette }>(
+  Component: React.ComponentType<Props>
+): React.ComponentType<$Diff<Props, { palette: Palette | void }>> {
+  class WithVibrant extends React.Component<$Diff<Props, { palette: Palette | void }>, { palette: Palette }> {
+    vibrant: (quality: number) => Promise<void>;
+    setPalette: (palette: Palette) => void;
+
     constructor(props) {
       super(props);
       this.vibrant = this.vibrant.bind(this)
-      this.setStateFromPalette = this.setStateFromPalette.bind(this)
       this.state = {
-        palette: null,
-        headerBackgroundColor: null,
-        headerTitleColor: null,
-        mainBackgroundColor: null,
+        palette: null
       };
     }
 
@@ -20,21 +36,16 @@ const withVibrant = image => WrappedComponent => {
     }
 
     vibrant(quality) {
-      return Vibrant.from(image, 256, quality).getPalette().then(this.setStateFromPalette).catch(console.log)
-    }
-
-    setStateFromPalette(palette) {
-      const headerBackgroundColor = palette && palette.DarkVibrant ? palette.DarkVibrant.getHex() : '#000'
-      const headerTitleColor = palette && palette.DarkVibrant ? palette.DarkVibrant.getTitleTextColor() : '#fff'
-      const mainBackgroundColor = palette && palette.Vibrant ? palette.Vibrant.getHex() : '#fff'
-      this.setState({ palette, headerBackgroundColor, headerTitleColor, mainBackgroundColor })
+      return Vibrant.from(this.props.image, 256, quality)
+        .getPalette()
+        .then(palette => this.setState({ palette }))
     }
 
     render() {
-      return <WrappedComponent {...this.state} {...this.props} />;
+      return <Component {...this.props} palette={this.state.palette} />;
     }
   }
-  WithVibrant.displayName = `WithVibrant(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`;
+  WithVibrant.displayName = `WithVibrant(${Component.displayName || Component.name || 'Component'})`;
   return WithVibrant
 }
 
